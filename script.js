@@ -5,11 +5,28 @@ let keyIndex = -1;
 let i = 0
 let move = 1
 let game = true
+let points = 0
+let level = 1
+let player
+class default_player {
+  x;
+  y;
+  firerate;
+  health;
+  constructor(x,y,firerate,health){
+    this.x=x;
+    this.y=y;
+    this.firerate = firerate;
+    this.health=health;
+  }
+  }
 // setingup the page does not do much
 function setup(){
   createCanvas(windowWidth,windowHeight-5);
   background(255,0,0);
   console.log(badguys)
+  badguys.push(new bad_guy(Math.floor(Math.random()* windowWidth+1),Math.floor(Math.random()* windowHeight+1)))
+  player= new default_player(windowWidth/2,windowHeight/2,10,10)
 
 }
 // the class for the main enemy
@@ -22,60 +39,28 @@ class bad_guy {
     this.y = y;
   }
 }
-class default_player {
-x;
-y;
-firerate;
-health;
-constructor(x,y,firerate,health){
-  this.x=x;
-  this.y=y;
-  this.firerate = firerate;
-  this.health=health;
-}
-}
-let player= new default_player(30,30,10,10)
+
 // Math.floor(Math.random()* windowWidth+1)
 // Math.floor(Math.random()* windowHeight+1)
 // gives you the ability to shoot the gun does not do much yet
-function shoot(){
 
-}
-
-function mousePressed() {
+function mouseClicked() {
   i++
   console.log("Bang Bang")
   circle(mouseX , mouseY ,2);
-  badguys.push(new bad_guy(Math.floor(Math.random()* windowWidth+1),Math.floor(Math.random()* windowHeight+1)))
+  //badguys.push(new bad_guy(Math.floor(Math.random()* windowWidth+1),Math.floor(Math.random()* windowHeight+1)))
   console.log(badguys)
   for (let l=0;l<badguys.length;l++){
     if (badguys[l].x<mouseX+15&&badguys[l].x>mouseX-15){
       if (badguys[l].y<mouseY+15&&badguys[l].y>mouseY-15){
         badguys.splice(l,1)
+        points++
         return
     }
   }
-  // circle(Math.floor(Math.random()* windowWidth+1),Math.floor(Math.random()*windowHeight+1),5)
 }
 }
 
-// function keyPressed() {
-//   let keyIndex = -1;
-//   if (key >= 'a' && key <= 'z') {
-//     console.log("KEY PRESSED")
-//     keyIndex = key.charCodeAt(0) - 'a'.charCodeAt(0);
-//     console.log(keyIndex)
-//   }
-//   if (keyIndex == 0){
-//     player.x=player.x-2
-//   }else if (keyIndex ==22){
-//     player.y=player.y-2
-//   }else if (keyIndex == 3){
-//     player.x=player.x+2
-//   }else if (keyIndex == 18){
-//     player.y=player.y+2
-//   }
-// }
 function getdistance(u,o,p,l){
   return(Math.sqrt(Math.pow((u-p),2)))+(Math.sqrt(Math.pow((o-l),2)))
 }
@@ -107,13 +92,26 @@ function moveBadGuy(){
 }
 
 function draw(){
-  let newY
-  let newX
+  console.log(badguys)
+  background(124, 252, 0	)
+  text(points,40,45)
+  text("Points",25,32)
+  text(level,90,45)
+  text("Level",80,32)
   if (game == false){
     console.log("end")
   }
 if (game==true){
-  background(124, 252, 0	)
+  if (badguys.length==0){
+    for (let i=0;i<level;i++){
+      badguys.push(new bad_guy(Math.floor(Math.random()* windowWidth+1),Math.floor(Math.random()* windowHeight+1)))
+      while (getdistance(badguys[i].x,badguys[i].y,player.x,player.y)<200){
+        badguys.splice(i,1)
+        badguys.push(new bad_guy(Math.floor(Math.random()* windowWidth+1),Math.floor(Math.random()* windowHeight+1)))
+      }
+    }
+    level++
+    }
   circle(player.x,player.y,20)
   if (keyIsDown(65) === true) {
     player.x -= move;
@@ -140,7 +138,7 @@ if (game==true){
     player.y=player.y+move
   }
   if(player.y+10>windowHeight){//off bottom
-    player.y=player.y+move
+    player.y=player.y-move
   }
   circle(player.x,player.y,20)
   game=moveBadGuy()
