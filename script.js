@@ -186,3 +186,4 @@ if (game==true){
   game=moveBadGuy()
 }
 }
+//Testing
