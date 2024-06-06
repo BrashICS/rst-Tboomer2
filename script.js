@@ -3,21 +3,24 @@ console.log("Script loaded...")
 let badguys = []
 let keyIndex = -1;
 let i = 0
-let move = 1
 let game = true
 let points = 0
 let level = 1
 let player
+let speedup=false
+
 class default_player {
   x;
   y;
   firerate;
   health;
-  constructor(x,y,firerate,health){
+  speed;
+  constructor(x,y,firerate,health,speed){
     this.x=x;
     this.y=y;
     this.firerate = firerate;
     this.health=health;
+    this.speed=speed;
   }
   }
 // setingup the page does not do much
@@ -26,8 +29,8 @@ function setup(){
   background(255,0,0);
   console.log(badguys)
   badguys.push(new bad_guy(Math.floor(Math.random()* windowWidth+1),Math.floor(Math.random()* windowHeight+1)))
-  player= new default_player(windowWidth/2,windowHeight/2,10,10)
-
+  player= new default_player(windowWidth/2,windowHeight/2,10,10,1)
+console.log(player.speed)
 }
 // the class for the main enemy
 class bad_guy {
@@ -46,6 +49,7 @@ class bad_guy {
 
 function mouseClicked() {
   i++
+  speedStartStop()
   console.log("Bang Bang")
   circle(mouseX , mouseY ,2);
   //badguys.push(new bad_guy(Math.floor(Math.random()* windowWidth+1),Math.floor(Math.random()* windowHeight+1)))
@@ -69,7 +73,7 @@ function getdistance(u,o,p,l){
 // this is how all the enemys move about
 function moveBadGuy(){
   for (let i=0;i<badguys.length;i++){
-    if (badguys[i].x<player.x+10&&badguys[i].x>player.x-10){
+    if (badguys[i].x<player.x+10&&badguys[i].x>player.x-10){ //its intentional that the zombie has to be on top of the player befor the player dies as any other way felt unfair for the player
       if (badguys[i].y<player.y+ 10&&badguys[i].y>player.y-10){
         console.log("DIE DIE DIE")
         game = false
@@ -89,6 +93,20 @@ function moveBadGuy(){
     fill('black')
   }
   return true
+}
+function speedStartStop(){
+if (speedup ==false){
+  player.speed=10
+  speedup=true
+  return
+}else if (speedup==true){
+  player.speed=1
+  speedup=false
+  return
+} else {
+  speedup=false
+  return
+}
 }
 
 function draw(){
@@ -113,32 +131,33 @@ if (game==true){
     level++
     }
   circle(player.x,player.y,20)
+  // Lets the player move and keeps them in bounds
   if (keyIsDown(65) === true) {
-    player.x -= move;
+    player.x -= player.speed;
   }
 
   if (keyIsDown(68) === true) {
-    player.x += move;
+    player.x += player.speed;
   }
 
   if (keyIsDown(87) === true) {
-    player.y -= move;
+    player.y -= player.speed;
   }
 
   if (keyIsDown(83) === true) {
-    player.y += move;
+    player.y += player.speed;
   }
   if(player.x-10<0){//off left
-    player.x=player.x+move
+    player.x=player.x+player.speed
   }
   if(player.x+10>windowWidth){//off right
-    player.x=player.x-move
+    player.x=player.x-player.speed
   }
   if(player.y-10<0){//off top
-    player.y=player.y+move
+    player.y=player.y+player.speed
   }
   if(player.y+10>windowHeight){//off bottom
-    player.y=player.y-move
+    player.y=player.y-player.speed
   }
   circle(player.x,player.y,20)
   game=moveBadGuy()
