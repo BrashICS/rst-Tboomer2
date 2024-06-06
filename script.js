@@ -8,7 +8,7 @@ let points = 0
 let level = 1
 let player
 let speedup=false
-
+let powerups = []
 class default_player {
   x;
   y;
@@ -42,6 +42,16 @@ class bad_guy {
     this.y = y;
   }
 }
+class powerup {
+  x;
+  y;
+  power;
+  constructor(x,y,power){
+    this.x=x;
+    this.y=y;
+    this.power=power;
+  }
+}
 
 // Math.floor(Math.random()* windowWidth+1)
 // Math.floor(Math.random()* windowHeight+1)
@@ -49,7 +59,6 @@ class bad_guy {
 
 function mouseClicked() {
   i++
-  speedStartStop()
   console.log("Bang Bang")
   circle(mouseX , mouseY ,2);
   //badguys.push(new bad_guy(Math.floor(Math.random()* windowWidth+1),Math.floor(Math.random()* windowHeight+1)))
@@ -57,6 +66,9 @@ function mouseClicked() {
   for (let l=0;l<badguys.length;l++){
     if (badguys[l].x<mouseX+15&&badguys[l].x>mouseX-15){
       if (badguys[l].y<mouseY+15&&badguys[l].y>mouseY-15){
+        if (Math.round(Math.random()*15)==1){
+          powerups.push(new powerup(badguys[l].x,badguys[l].y,"Speed"))
+        }
         badguys.splice(l,1)
         points++
         return
@@ -135,7 +147,6 @@ if (game==true){
   if (keyIsDown(65) === true) {
     player.x -= player.speed;
   }
-
   if (keyIsDown(68) === true) {
     player.x += player.speed;
   }
@@ -158,6 +169,18 @@ if (game==true){
   }
   if(player.y+10>windowHeight){//off bottom
     player.y=player.y-player.speed
+  }
+  for (let i=0;i<powerups.length;i++){
+    fill("yellow")
+    circle(powerups[i].x,powerups[i].y,20)
+    fill("black")
+  if (powerups[i].x<player.x+15&&powerups[i].x>player.x-15){
+    if (powerups[i].y<player.y+15&&powerups[i].y>player.y-15){
+      speedStartStop()
+      setTimeout(speedStartStop,5000)
+      powerups.splice(i,1)
+  }
+}
   }
   circle(player.x,player.y,20)
   game=moveBadGuy()
