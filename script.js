@@ -76,17 +76,17 @@ function moveBadGuy(){
         return false
     }
   }
-    newX = badguys[i].x+((Math.random()* 4)-2)
-    newY= badguys[i].y+((Math.random()* 4)-2)
-    while (getdistance(newX,newY,player.x,player.y)>getdistance(badguys[i].x,badguys[i].y,player.x,player.y)){
-      //||(!(getdistance(badguys[i].x,badguys[i].y,mouseX,mouseY)>2)))
-      newX = badguys[i].x+((Math.random()* 5)-2)
-      newY= badguys[i].y+((Math.random()* 4)-2)
+    newX = badguys[i].x+((Math.random()* 4)-2)// makes zombies jitter on the x axis
+    newY= badguys[i].y+((Math.random()* 4)-2)// makes zombies jitter on the y axis
+    while (getdistance(newX,newY,player.x,player.y)>getdistance(badguys[i].x,badguys[i].y,player.x,player.y)){ //See the distance bettwen the player and zombies
+      newX = badguys[i].x+((Math.random()* 5)-2) // makes zombies jitter on the x axis
+      newY= badguys[i].y+((Math.random()* 4)-2)// makes zombies jitter on the y axis
     }
     badguys[i].y=newY
     badguys[i].x=newX
+    fill('green')
     circle(badguys[i].x,badguys[i].y,30)
-
+    fill('black')
   }
   return true
 }
@@ -94,7 +94,7 @@ function moveBadGuy(){
 function draw(){
   console.log(badguys)
   background(124, 252, 0	)
-  text(points,40,45)
+  text(points,35,45)
   text("Points",25,32)
   text(level,90,45)
   text("Level",80,32)
