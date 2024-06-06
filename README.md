@@ -62,7 +62,7 @@ Creating a _game_ is more fun than a generic application. That being said if you
 
 | Game / App | Difficulty (subjective opinion) |
 |------------|:----------:|
-|2 Player Hangman - P1 enters the hidden text<br>[Example](https://hangman-example.mrbrash.repl.co/) | Low to Medium |
+|2 Player Hangman - P1 enters the hidden text<br>[Example](https://misterbrash.github.io/Hangman_Example_HTML/) | Low to Medium |
 |Hangman vs Computer - Hidden text is selected from a list<br>[Text-based example](https://github.com/MisterBrash/Text-based_Hangman)| Medium |
 |Wordle Remake (perhaps add your own twist) | Medium-High |
 |Encryption / Decryption App | Low |
