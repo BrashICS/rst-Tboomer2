@@ -122,6 +122,14 @@ if (speedup ==false){
 }
 function start(){
   game=true
+  badguys = []
+ keyIndex = -1;
+ i = 0
+ points = 0
+ level = 1
+ player
+ speedup=false
+ powerups = []
   removeElements()
 }
 function draw(){
@@ -137,6 +145,11 @@ function draw(){
     let button = createButton('click to start');
     button.position(windowWidth/2, (windowHeight/2)-50);
     button.mousePressed(start)
+    text("You can use W to move up, A to move left, S to move down and D to move right.",(windowWidth/2)-30, (windowHeight/2))
+    text("The green circles are zombies and they want to bite you. You can get rid of the zombies by clicking on them",(windowWidth/2)-30, (windowHeight/2)+10)
+    text("The zombies will occasionaly drop powerups that look like yellow circles these ",(windowWidth/2)-30, (windowHeight/2)+20)
+    text("will speed you up greatly for a couple seconds and is required to survive on later levels.",(windowWidth/2)-30, (windowHeight/2)+30)
+
   }
 if (game==true){
   if (badguys.length==0){
