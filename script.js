@@ -3,7 +3,7 @@ console.log("Script loaded...")
 let badguys = []
 let keyIndex = -1;
 let i = 0
-let game = true
+let game = false
 let points = 0
 let level = 1
 let player
@@ -120,7 +120,10 @@ if (speedup ==false){
   return
 }
 }
-
+function start(){
+  game=true
+  removeElements()
+}
 function draw(){
   console.log(badguys)
   background(124, 252, 0	)
@@ -128,8 +131,12 @@ function draw(){
   text("Points",25,32)
   text(level,90,45)
   text("Level",80,32)
+  console.log(game)
   if (game == false){
-    console.log("end")
+    game=false
+    let button = createButton('click to start');
+    button.position(windowWidth/2, (windowHeight/2)-50);
+    button.mousePressed(start)
   }
 if (game==true){
   if (badguys.length==0){
@@ -174,12 +181,14 @@ if (game==true){
     fill("yellow")
     circle(powerups[i].x,powerups[i].y,20)
     fill("black")
+    if (speedup==false){
   if (powerups[i].x<player.x+15&&powerups[i].x>player.x-15){
     if (powerups[i].y<player.y+15&&powerups[i].y>player.y-15){
       speedStartStop()
       setTimeout(speedStartStop,5000)
       powerups.splice(i,1)
   }
+}
 }
   }
   circle(player.x,player.y,20)
