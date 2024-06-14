@@ -9,17 +9,14 @@ let level = 1
 let player
 let speedup=false
 let powerups = []
+// class for the player includeing firerate h
 class default_player {
   x;
   y;
-  firerate;
-  health;
   speed;
-  constructor(x,y,firerate,health,speed){
+  constructor(x,y,speed){
     this.x=x;
     this.y=y;
-    this.firerate = firerate;
-    this.health=health;
     this.speed=speed;
   }
   }
@@ -29,7 +26,7 @@ function setup(){
   background(255,0,0);
   console.log(badguys)
   badguys.push(new bad_guy(Math.floor(Math.random()* windowWidth+1),Math.floor(Math.random()* windowHeight+1)))
-  player= new default_player(windowWidth/2,windowHeight/2,10,10,1)
+  player= new default_player(windowWidth/2,windowHeight/2,1)
 console.log(player.speed)
 }
 // the class for the main enemy
@@ -42,6 +39,7 @@ class bad_guy {
     this.y = y;
   }
 }
+// the class for the speed up powerups
 class powerup {
   x;
   y;
@@ -53,10 +51,7 @@ class powerup {
   }
 }
 
-// Math.floor(Math.random()* windowWidth+1)
-// Math.floor(Math.random()* windowHeight+1)
-// gives you the ability to shoot the gun does not do much yet
-
+//This fires your "toy" gun at the zombies to get rid of them
 function mouseClicked() {
   i++
   console.log("Bang Bang")
@@ -107,6 +102,7 @@ function moveBadGuy(){
   return true
 }
 function speedStartStop(){
+  console.log("SPEEED")
 if (speedup ==false){
   player.speed=10
   speedup=true
@@ -120,6 +116,7 @@ if (speedup ==false){
   return
 }
 }
+//This is what runs whenever you start a new game
 function start(){
   game=true
   badguys = []
@@ -132,26 +129,38 @@ function start(){
  powerups = []
   removeElements()
 }
-function draw(){
-  console.log(badguys)
+//Allows window resize
+function windowResized(){
+  resizeCanvas(windowWidth,windowHeight-5)
   background(124, 252, 0	)
+
+  removeElements()
+}
+
+//Everything that needs to be going at all times or checking for collision goes in draw
+function draw(){
+  background(124, 252, 0	)
+  if (game == false){
+    game=false
+    let button = createButton('click to start');
+    button.position(windowWidth/2-60, (windowHeight/2)-110);
+    button.mousePressed(start)
+    textFont("Times New Roman",80)
+    text('Untitled Zombie Game', windowWidth/2-375, (windowHeight/2)-200);
+    textFont("'Courier New'",12)
+
+    text()
+    text("You can use W to move up, A to move left, S to move down and D to move right.",(windowWidth/2)-240, (windowHeight/2))
+    text("The green circles are zombies and they want to bite you. You can get rid of the zombies by clicking on them.",(windowWidth/2)-240, (windowHeight/2)+10)
+    text("The zombies will occasionaly drop powerups that look like yellow circles these ",(windowWidth/2)-240, (windowHeight/2)+20)
+    text("will speed you up greatly for a couple seconds and is required to survive on later levels.",(windowWidth/2)-240, (windowHeight/2)+30)
+
+  }
+if (game==true){
   text(points,35,45)
   text("Points",25,32)
   text(level,90,45)
   text("Level",80,32)
-  console.log(game)
-  if (game == false){
-    game=false
-    let button = createButton('click to start');
-    button.position(windowWidth/2, (windowHeight/2)-50);
-    button.mousePressed(start)
-    text("You can use W to move up, A to move left, S to move down and D to move right.",(windowWidth/2)-30, (windowHeight/2))
-    text("The green circles are zombies and they want to bite you. You can get rid of the zombies by clicking on them",(windowWidth/2)-30, (windowHeight/2)+10)
-    text("The zombies will occasionaly drop powerups that look like yellow circles these ",(windowWidth/2)-30, (windowHeight/2)+20)
-    text("will speed you up greatly for a couple seconds and is required to survive on later levels.",(windowWidth/2)-30, (windowHeight/2)+30)
-
-  }
-if (game==true){
   if (badguys.length==0){
     for (let i=0;i<level;i++){
       badguys.push(new bad_guy(Math.floor(Math.random()* windowWidth+1),Math.floor(Math.random()* windowHeight+1)))
