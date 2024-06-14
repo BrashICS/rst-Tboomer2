@@ -1,3 +1,5 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/mIhwMvGB)
+[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-7f7980b617ed060a017424585567c406b6ee15c891e84e1186181d67ecf80aa0.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=15156958)
 # G. 11 Final Project (RST)
 
 ###### ICS3UC - Mr. Brash 🐿️
@@ -60,7 +62,7 @@ Creating a _game_ is more fun than a generic application. That being said if you
 
 | Game / App | Difficulty (subjective opinion) |
 |------------|:----------:|
-|2 Player Hangman - P1 enters the hidden text<br>[Example](https://hangman-example.mrbrash.repl.co/) | Low to Medium |
+|2 Player Hangman - P1 enters the hidden text<br>[Example](https://misterbrash.github.io/Hangman_Example_HTML/) | Low to Medium |
 |Hangman vs Computer - Hidden text is selected from a list<br>[Text-based example](https://github.com/MisterBrash/Text-based_Hangman)| Medium |
 |Wordle Remake (perhaps add your own twist) | Medium-High |
 |Encryption / Decryption App | Low |

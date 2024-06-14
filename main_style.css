@@ -1,0 +1,10 @@
+
+body {
+  margin: 0;
+  padding:0px;
+}
+header { border:1px black solid; }
+
+* {
+  margin:0;
+}
