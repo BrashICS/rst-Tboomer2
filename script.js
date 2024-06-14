@@ -71,7 +71,7 @@ function mouseClicked() {
   }
 }
 }
-
+// get the distance betwen to ojects very usefull for the zombie ai
 function getdistance(u,o,p,l){
   return(Math.sqrt(Math.pow((u-p),2)))+(Math.sqrt(Math.pow((o-l),2)))
 }
@@ -101,6 +101,8 @@ function moveBadGuy(){
   }
   return true
 }
+
+// turns on and off super speed
 function speedStartStop(){
   console.log("SPEEED")
 if (speedup ==false){
@@ -199,6 +201,7 @@ if (game==true){
   if(player.y+10>windowHeight){//off bottom
     player.y=player.y-player.speed
   }
+  // check if the player is touching a power up
   for (let i=0;i<powerups.length;i++){
     fill("yellow")
     circle(powerups[i].x,powerups[i].y,20)
